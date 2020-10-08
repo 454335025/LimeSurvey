@@ -326,7 +326,21 @@ class Qanda
                ++$maxHeight; // for Other
            }
 
-           if (is_null())
+           $sessionFieldName = $_SESSION['survey_'.App()->getConfig('surveyID')][$details->getFieldName()];
+           if (is_null($sessionFieldName)) {
+               ++$maxHeight; // for 'Please choose:'
+           }
+
+           if ($height > $maxHeight) {
+               $height = $maxHeight;
+           }
+           $dropDownSize = $height;
+        }
+
+        $prefixStyle = 0;
+        $dropDownPrefix = $attributes->getAttribute('dropdown_prefix');
+        if (isset($dropDownPrefix)) {
+            $prefixStyle = sanitize($dropDownPrefix);
         }
 
 
